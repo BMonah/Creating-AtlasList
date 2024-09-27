@@ -1,30 +1,37 @@
-
-import React ,{useEffect, useState}from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/main.css';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
+import NavBar from './components/Navbar';
 
-const App=()=>{
-    //we will use useEffect hook to make an API call everytime we render our API
-    //now we want to fetch a hellow world
-    useEffect(
-        ()=>{
-            fetch('http://localhost:8080/recipe/hello')
-            .then(response=>response.json())
-            .then(data=>{console.log(data)
-                //Use useState hook to set the value of our message to the hello world
-                setMessage(data.message)
-            })
-            .catch(err=>console.log(err))
+import {
+    BrowserRouter as Router,
+    Route,
+    Routes
+} from 'react-router-dom';
 
-        },[]
-    )
+import HomePage from './components/Home';
+import CreateRecipePage from './components/CreateRecipe';
+import SignUpPage from './components/SignUp';
+import LoginPage from './components/Login';
 
-    const [message,setMessage]=useState('')
+
+// The BrowserRouter is to have our application use react router
+const App = () => {
     return (
-        <div className="app">
-            {message}
-        </div>
-    )
+        <Router>
+            <div className="container">
+                <NavBar />
+                <Routes>
+                    <Route path="/create_recipe" element={<CreateRecipePage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/signup" element={<SignUpPage />} />
+                    <Route path="/" element={<HomePage />} />
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />)
+root.render(<App />);
