@@ -1,70 +1,99 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import {Link} from 'react-router-dom'
+import { Form, Button, Alert } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 const SignUpPage = () => {
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const [show, setShow] = useState(false);
+    const [serverResponse, setServerResponse] = useState('');
 
-    const submitForm = (e) => {
-        e.preventDefault();
-        console.log("Form Submitted", { username, email, password, confirmPassword });
+    const submitForm = (data) => {
+        if (data.password !== data.confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
 
-        setUsername('')
-        setEmail('')
-        setPassword('')
-        setConfirmPassword('')
-    }
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: data.username,
+                email: data.email,
+                password: data.password
+            })
+        };
+
+        fetch('http://127.0.0.1:8080/auth/signup', requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    setServerResponse("Signup successful!");
+                    setShow(true); // Optionally hide the alert after success
+                    reset(); // Resets the form after successful submission
+                } else {
+                    setServerResponse(result.message || "Something went wrong!");
+                    setShow(true);
+                }
+            })
+            .catch(error => {
+                console.error("Signup error:", error);
+                setServerResponse("An error occurred during signup.");
+                setShow(true); // Show the error message
+            });
+    };
 
     return (
         <div className="container">
             <div className="form">
                 <h1>Sign Up</h1>
-                <Form onSubmit={submitForm}>
+                {show && (
+                    <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+                        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+                        <p>{serverResponse}</p>
+                    </Alert>
+                )}
+                <Form onSubmit={handleSubmit(submitForm)}>
                     <Form.Group>
                         <Form.Label>Username</Form.Label>
-                        <Form.Control 
-                            type="text" 
+                        <Form.Control
+                            type="text"
                             placeholder="Your username"
-                            value={username}
-                            name="username"
-                            onChange={(e) => setUsername(e.target.value)}
+                            {...register("username", { required: true, maxLength: 25 })}
                         />
+                        {errors.username && <small className="text-danger">Username is required (max 25 characters)</small>}
                     </Form.Group>
                     <br />
                     <Form.Group>
                         <Form.Label>Email</Form.Label>
-                        <Form.Control 
-                            type="email" 
+                        <Form.Control
+                            type="email"
                             placeholder="Your email"
-                            value={email}
-                            name="email"
-                            onChange={(e) => setEmail(e.target.value)}
+                            {...register("email", { required: true, maxLength: 80 })}
                         />
+                        {errors.email && <small className="text-danger">Email is required (max 80 characters)</small>}
                     </Form.Group>
                     <br />
                     <Form.Group>
                         <Form.Label>Password</Form.Label>
-                        <Form.Control 
-                            type="password" 
+                        <Form.Control
+                            type="password"
                             placeholder="Your password"
-                            value={password}
-                            name="password"
-                            onChange={(e) => setPassword(e.target.value)}
+                            {...register("password", { required: true, minLength: 8, maxLength: 80 })}
                         />
+                        {errors.password && <small className="text-danger">Password must be 8-80 characters</small>}
                     </Form.Group>
                     <br />
                     <Form.Group>
                         <Form.Label>Confirm Password</Form.Label>
-                        <Form.Control 
-                            type="password" 
+                        <Form.Control
+                            type="password"
                             placeholder="Confirm your password"
-                            value={confirmPassword}
-                            name="confirmPassword"
-                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            {...register("confirmPassword", { required: true, minLength: 8, maxLength: 80 })}
                         />
+                        {errors.confirmPassword && <small className="text-danger">Please confirm your password (8-80 characters)</small>}
                     </Form.Group>
                     <br />
                     <Button variant="primary" type="submit">

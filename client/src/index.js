@@ -3,6 +3,7 @@ import './styles/main.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import NavBar from './components/Navbar';
+import Footer from './components/footer';
 
 import {
     BrowserRouter as Router,
@@ -28,6 +29,7 @@ const App = () => {
                     <Route path="/signup" element={<SignUpPage />} />
                     <Route path="/" element={<HomePage />} />
                 </Routes>
+                <Footer />
             </div>
         </Router>
     );
