@@ -1,53 +1,41 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Navbar, Nav, Container, NavDropdown, Form, Button, FormControl } from 'react-bootstrap';
 
 const NavBar = () => {
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link className="navbar-brand" to="/">AtlasList</Link>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav mr-auto">
-                    <li className="nav-item active">
-                        <Link className="nav-link" active to="/">Home <span className="sr-only">(current)</span></Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" active to="/signup">Sign Up</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" active to="/login">Login</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" active to="/create_recipe">Create Recipe</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" active to="/get_recpe">Get Recipe</Link>
-                    </li>
-                    <li className="nav-item dropdown">
-                        <Link className="nav-link dropdown-toggle" to="/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </Link>
-                        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <Link className="dropdown-item" to="/">Action</Link>
-                            <Link className="dropdown-item" href="#">Another action</Link>
-                            <div className="dropdown-divider"></div>
-                            <Link className="dropdown-item" href="#">Something else here</Link>
-                        </div>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link disabled" href="#">Disabled</Link>
-                    </li>
-                </ul>
-                {/* Add ml-auto to push the form to the far right */}
-                <form className="form-inline d-flex ms-auto my-2 my-lg-0">
-                    <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
+        <Navbar bg="light" expand="lg" className="mb-4">
+            <Container>
+                <Navbar.Brand as={Link} to="/">AtlasList</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Link as={Link} to="/">Home</Nav.Link>
+                        <Nav.Link as={Link} to="/signup">Sign Up</Nav.Link>
+                        <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                        <Nav.Link as={Link} to="/create_recipe">Create Recipe</Nav.Link>
+                        <Nav.Link as={Link} to="/getjobs">Get Jobs</Nav.Link>
+                        <NavDropdown title="More" id="basic-nav-dropdown">
+                            <NavDropdown.Item as={Link} to="/">Action</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/">Another action</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item as={Link} to="/">Something else here</NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                    
+                    {/* Search form */}
+                    <Form className="d-flex">
+                        <FormControl
+                            type="search"
+                            placeholder="Search"
+                            className="me-2"
+                            aria-label="Search"
+                        />
+                        <Button variant="outline-success">Search</Button>
+                    </Form>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
 };
 

@@ -12,7 +12,7 @@ import {
 } from 'react-router-dom';
 
 import HomePage from './components/Home';
-import CreateRecipePage from './components/CreateRecipe';
+import GetJobsPage from './components/getjobs';
 import SignUpPage from './components/SignUp';
 import LoginPage from './components/Login';
 
@@ -24,7 +24,7 @@ const App = () => {
             <div className="container">
                 <NavBar />
                 <Routes>
-                    <Route path="/create_recipe" element={<CreateRecipePage />} />
+                    <Route path="/getjobs" element={<GetJobsPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignUpPage />} />
                     <Route path="/" element={<HomePage />} />
