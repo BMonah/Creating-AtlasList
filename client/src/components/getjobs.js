@@ -7,7 +7,7 @@ const AvailableJobsPage = () => {
 
     // Fetch the jobs from the API
     useEffect(() => {
-        fetch('http://127.0.0.1:8080/recipe/recipe/1')  // Adjust the URL to your backend endpoint
+        fetch('http://127.0.0.1:8080/recipe/recipes')  // Adjust the URL to your backend endpoint
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch jobs');

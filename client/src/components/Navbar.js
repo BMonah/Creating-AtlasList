@@ -13,6 +13,7 @@ const NavBar = () => {
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
                         <Nav.Link as={Link} to="/signup">Sign Up</Nav.Link>
                         <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                        <Nav.Link as={Link} to="/logout">Logout</Nav.Link>
                         <Nav.Link as={Link} to="/create_recipe">Create Recipe</Nav.Link>
                         <Nav.Link as={Link} to="/getjobs">Get Jobs</Nav.Link>
                         <NavDropdown title="More" id="basic-nav-dropdown">
