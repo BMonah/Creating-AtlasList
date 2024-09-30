@@ -1,21 +1,22 @@
 from exts import db
 """
-class Recipe:
+class Jobs:
     id:int primary key
     title:str
     description:str(text)
 """
 
 
-class Recipe(db.Model):
+class Jobs(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(), nullable=False)
     description = db.Column(db.Text(), nullable=False)
+    rate = db.Column(db.Integer())
 
     # below method will help us return string representation of objects created from the class
 
     def __repr__(self):
-        return f"<Recipe {self.title}>"
+        return f"<Jobs {self.title}>"
 
     # create a save CRUD operation method
 

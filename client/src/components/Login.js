@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
@@ -36,6 +37,9 @@ const LoginPage = () => {
             setSuccess(true);
             setError(null);
             navigate('/getjobs');  // Redirect after successful login
+            localStorage.setItem('access_token', data.access_token);
+            localStorage.setItem('refresh_token', data.refresh_token);
+            console.log(data.access_token)
         })
         .catch(error => {
             console.error('Login error:', error);
@@ -77,6 +81,10 @@ const LoginPage = () => {
                     <Button variant="primary" type="submit">
                         Login
                     </Button>
+                    <br />
+                    <Form.Group>
+                        <small>Do not have an account? <Link to='/signup'>ignup instead</Link></small>
+                    </Form.Group>
                 </Form>
             </div>
         </div>

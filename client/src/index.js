@@ -15,6 +15,7 @@ import HomePage from './components/Home';
 import GetJobsPage from './components/getjobs';
 import SignUpPage from './components/SignUp';
 import LoginPage from './components/Login';
+import CreateJobPage from './components/create_jobs';
 
 
 // The BrowserRouter is to have our application use react router
@@ -28,6 +29,7 @@ const App = () => {
                     <Route path="/logout" element={<LoginPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignUpPage />} />
+                    <Route path="/create_jobs" element={<CreateJobPage/>}/>
                     <Route path="/" element={<HomePage />} />
                 </Routes>
                 <Footer />
